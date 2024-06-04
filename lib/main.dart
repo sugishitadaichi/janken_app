@@ -38,18 +38,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 //自分のじゃんけんマスタ
-  String myJankenText = '👊';
+  String myJankenText = Hand.rock.text;
 //相手のじゃんけんマスタ
-  String computerJankenText = '👊';
+  String computerJankenText = Hand.rock.text;
 //じゃんけんリスト（相手の）
-  List<String>jankenList = ['✌️','👊','✋'];
+  List<Hand>jankenList = [Hand.rock, Hand.scissors, Hand.paper];
 
   void chooseComputerText() {
     final random = Random();
     final randomNumber = random.nextInt(3);
+    //enum型になった
     final hand = jankenList[randomNumber];
     setState(() {
-      computerJankenText = hand;
+      //Hand型をStringに変換
+      computerJankenText = hand.text;
     });
   }
 
@@ -96,13 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
               onPressed:(){
                 setState(() {
-                  myJankenText = '👊';
+                  myJankenText = Hand.rock.text;
                 });
                 //相手のランダム選択をボタンを押すときに呼び出す
                 chooseComputerText();
               },
             child: const Text(
-              '👊',
+              Hand.rock.text,
               style: TextStyle(fontSize: 30),
             ),
           ),
@@ -113,13 +115,13 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed:(){
               setState(() {
-                myJankenText = '✌️';
+                myJankenText = Hand.scissors.text;
               });
               //相手のランダム選択をボタンを押すときに呼び出す
               chooseComputerText();
             },
             child: const Text(
-              '✌️',
+              Hand.scissors.text,
               style: TextStyle(fontSize: 30),
             ),
           ),
@@ -130,18 +132,35 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed:(){
               setState(() {
-                myJankenText = '✋️';
+                myJankenText = Hand.paper.text;
               });
               //相手のランダム選択をボタンを押すときに呼び出す
               chooseComputerText();
             },
             child: const Text(
-              '✋️',
+              Hand.paper.text,
               style: TextStyle(fontSize: 30),
             ),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+//enum = Bool型の進化系（true・false以外の選択肢が設定できる）
+enum Hand {
+  rock,
+  scissors,
+  paper;
+
+  String get text {
+    switch(this){
+      case Hand.rock:
+        return '👊';
+      case Hand.scissors:
+        return '✌️';
+      case Hand.paper:
+        return '✋';
+    }
   }
 }
