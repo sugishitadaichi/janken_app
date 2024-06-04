@@ -115,7 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            //グーボタンの作成
               onPressed:(){
                 setState(() {
                   jankenText = '👊';
@@ -131,7 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
 
           FloatingActionButton(
-            //チョキボタンの作成
             onPressed:(){
               setState(() {
                 jankenText = '✌️';
@@ -147,7 +145,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
 
           FloatingActionButton(
-            //パーボタンの作成
             onPressed:(){
               setState(() {
                 jankenText = '✋️';
