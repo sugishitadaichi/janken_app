@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final random = Random();
     final randomNumber = random.nextInt(3);
     //enum型になった
-    final hand = jankenList[randomNumber];
+    final hand = Hand.values[randomNumber];
     setState(() {
       //Hand型をStringに変換
       computerJankenText = hand.text;
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 //相手のランダム選択をボタンを押すときに呼び出す
                 chooseComputerText();
               },
-            child: const Text(
+            child: Text(
               Hand.rock.text,
               style: TextStyle(fontSize: 30),
             ),
@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //相手のランダム選択をボタンを押すときに呼び出す
               chooseComputerText();
             },
-            child: const Text(
+            child: Text(
               Hand.scissors.text,
               style: TextStyle(fontSize: 30),
             ),
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //相手のランダム選択をボタンを押すときに呼び出す
               chooseComputerText();
             },
-            child: const Text(
+            child: Text(
               Hand.paper.text,
               style: TextStyle(fontSize: 30),
             ),
