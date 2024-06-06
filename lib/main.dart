@@ -82,13 +82,20 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 80,
             ),
             Text(
+              Result.win.text,
+              style: TextStyle(fontSize: 30),
+            ),
+            SizedBox(
+              height: 80,
+            ),
+            Text(
               '自分',
               style: TextStyle(fontSize: 30),
             ),
             Text(
               myJankenText,
               style: TextStyle(fontSize: 200),
-            )
+            ),
           ],
         ),
       ),
@@ -148,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 //enum = Bool型の進化系（true・false以外の選択肢が設定できる）
+//じゃんけんをここで判断してグーチョキパーアイコンを使用する
 enum Hand {
   rock,
   scissors,
@@ -161,6 +169,24 @@ enum Hand {
         return '✌️';
       case Hand.paper:
         return '✋';
+    }
+  }
+}
+
+//勝ち負け引き分け表示の判断をする
+enum Result {
+  win,
+  lose,
+  draw;
+
+  String get text {
+    switch (this) {
+      case Result.win:
+        return '勝ち';
+      case Result.lose:
+        return '負け';
+      case Result.draw:
+        return 'あいこ';
     }
   }
 }
