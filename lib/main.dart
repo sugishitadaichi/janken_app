@@ -38,9 +38,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 //自分のじゃんけんマスタ
-  String myJankenText = Hand.rock.text;
+  Hand? myHand;
 //相手のじゃんけんマスタ
-  String computerJankenText = Hand.rock.text;
+  Hand? computerHand;
+  //Resultの型を使用した勝敗を格納する変数
+  Result? result;
 //じゃんけんリスト（相手の）
   List<Hand>jankenList = [Hand.rock, Hand.scissors, Hand.paper];
 
@@ -51,7 +53,31 @@ class _MyHomePageState extends State<MyHomePage> {
     final hand = Hand.values[randomNumber];
     setState(() {
       //Hand型をStringに変換
-      computerJankenText = hand.text;
+      computerHand = hand;
+    });
+    decideResult();
+  }
+
+  //勝敗判定の関数
+  void decideResult(){
+    if(myHand == null || computerHand == null ) {
+      return;
+    }
+    final Result result;
+
+    if (myHand == computerHand) {
+      result = Result.draw;
+    } else if(myHand == Hand.rock && computerHand == Hand.scissors) {
+      result = Result.win;
+    }  else if(myHand == Hand.scissors && computerHand == Hand.paper) {
+      result = Result.win;
+    } else if(myHand == Hand.paper && computerHand == Hand.rock) {
+      result = Result.win;
+    } else  {
+      result = Result.lose;
+    }
+    setState(() {
+      this.result = result;
     });
   }
 
@@ -75,14 +101,14 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              computerJankenText,
-              style: TextStyle(fontSize: 100),
+              computerHand?.text ?? '?',
+              style: TextStyle(fontSize: 80),
             ),
             SizedBox(
               height: 80,
             ),
             Text(
-              Result.win.text,
+              result?.text ?? '?',
               style: TextStyle(fontSize: 30),
             ),
             SizedBox(
@@ -93,8 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              myJankenText,
-              style: TextStyle(fontSize: 200),
+              myHand?.text ?? '?',
+              style: TextStyle(fontSize: 150),
             ),
           ],
         ),
@@ -105,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
               onPressed:(){
                 setState(() {
-                  myJankenText = Hand.rock.text;
+                  myHand = Hand.rock;
                 });
                 //相手のランダム選択をボタンを押すときに呼び出す
                 chooseComputerText();
@@ -122,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed:(){
               setState(() {
-                myJankenText = Hand.scissors.text;
+                myHand = Hand.scissors;
               });
               //相手のランダム選択をボタンを押すときに呼び出す
               chooseComputerText();
@@ -139,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed:(){
               setState(() {
-                myJankenText = Hand.paper.text;
+                myHand = Hand.paper;
               });
               //相手のランダム選択をボタンを押すときに呼び出す
               chooseComputerText();
